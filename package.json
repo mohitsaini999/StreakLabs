@@ -1,0 +1,26 @@
+{
+  "name": "streaklabs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "backend": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
+    "dompurify": "^3.4.16",
+    "lucide-react": "^0.468.0",
+    "markmap-lib": "^0.18.12",
+    "markmap-view": "^0.18.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.5"
+  }
+}
