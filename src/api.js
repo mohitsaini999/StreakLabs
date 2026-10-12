@@ -1,4 +1,4 @@
-export const API_BASE = import.meta.env.VITE_API_URL || 'https://streaklabs.onrender.com/api';
+export const API_BASE = import.meta.env.VITE_API_URL || 'https://streaklabs.onrender.com';
 
 let token = '';
 
