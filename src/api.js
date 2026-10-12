@@ -1,4 +1,5 @@
-export const API_BASE = import.meta.env.VITE_API_URL || 'https://streaklabs.onrender.com';
+export const API_BASE = import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? 'https://streaklabs.onrender.com/api' : 'http://localhost:3001/api');
 
 let token = '';
 
@@ -24,7 +25,7 @@ export async function api(path, opts = {}) {
   try {
     res = await fetch(`${API_BASE}${path}`, { ...opts, headers, body });
   } catch {
-    throw new Error(`Can't reach the backend at ${API_BASE}. Start it with npm run dev in the backend folder.`);
+    throw new Error(`Can't reach the backend at ${API_BASE}. Check the API URL and allow this site's origin in the backend CORS settings.`);
   }
 
   if (!res.ok) {

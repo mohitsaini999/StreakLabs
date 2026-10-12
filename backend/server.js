@@ -89,9 +89,12 @@ const upload = multer({
   fileFilter: (_req, file, done) => okExts.has(path.extname(file.originalname).toLowerCase()) ? done(null, true) : done(new Error('Unsupported file type. Use PDF, DOC, DOCX, TXT, or MD.')),
 });
 
-const configuredOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
-const localOrigins = process.env.NODE_ENV === 'production' ? [configuredOrigin] : [configuredOrigin, 'http://localhost:5173', 'http://127.0.0.1:5173'];
-app.use(cors({ origin: (origin, done) => !origin || localOrigins.includes(origin) ? done(null, true) : done(new Error('Origin is not allowed by CORS')) }));
+const configuredOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:5173')
+  .split(',').map(origin => origin.trim()).filter(Boolean);
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? configuredOrigins
+  : [...new Set([...configuredOrigins, 'http://localhost:5173', 'http://127.0.0.1:5173'])];
+app.use(cors({ origin: (origin, done) => !origin || allowedOrigins.includes(origin) ? done(null, true) : done(new Error('Origin is not allowed by CORS')) }));
 app.use(express.text({ type: 'text/plain', limit: '10kb' }));
 app.use(express.json({ limit: '1mb' }));
 app.get('/api/health', async (_req, res) => {
